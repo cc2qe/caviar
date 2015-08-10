@@ -106,7 +106,16 @@ int main( int argc, char *argv[]  ){
 	for(int i = 0; i < snpCount; i++) {
 		if(configure[i] == '1')
 			outputFile << snpNames[i] << endl;
-	}			
+	}
+	outputFile.close();
+
+	// output the post values for each variant
+	string outFileNamePost = string(outputFileName)+"_post";
+	outputFile.open(outFileNamePost.c_str());
+	for(int i = 0; i < snpCount; i++) {
+	  outputFile << snpNames[i] << "\t" << post.postProbs[i] << endl;
+	}
+	outputFile.close();	
 
         //output the histogram data to file
         if(histFlag)

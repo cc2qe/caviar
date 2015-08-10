@@ -186,6 +186,10 @@ double PostCal::findOptimalSetGreedy(double * stat, double NCP, char * configure
 
 	for(int i = 0; i < snpCount; i++)
 		total_likelihood += postValues[i];
+
+	// generate array of probability for each variant
+	for (int i = 0; i < snpCount; ++i)
+	  postProbs[i] = postValues[i] / total_likelihood;
 	
         std::vector<data> items;
         std::set<int>::iterator it;

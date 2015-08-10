@@ -29,13 +29,13 @@ private:
 	gsl_matrix ** matrixPossibleCases; 	//Compute the set of matrixes which repearsent the \sigma \sigma_c \sigma
 	double baseValue;			//base value used for calculation for overflow	
 public:
-
 	PostCal(double * sigma, int snpCount, int maxCausalSNP) {
                 this-> snpCount = snpCount;
 		this-> maxCausalSNP = maxCausalSNP;
                 this->sigma = new double[snpCount * snpCount];
 		this-> postValues = new double [snpCount];
 		this-> histValues = new double [maxCausalSNP+1];              
+		this-> postProbs = new double [snpCount];
  
 		for(int i = 0; i < snpCount*snpCount; i++)
 			this->sigma[i] = sigma[i];
@@ -84,6 +84,7 @@ public:
 	double totalLikelihood(double * stat, double NCP) ;	
 	double findOptimalSetGreedy(double * stat, double NCP, char * configure, int *rank,  double inputRho);
 	string convertConfig2String(int * config, int size);
+	double * postProbs;	//the posterior probability for each SNP being causal
 	void printHist2File(string fileName) {
 		exportVector2File(fileName, histValues, maxCausalSNP+1);
 	}
